@@ -1,5 +1,3 @@
-import configparser
-
 import discord
 from discord.ext import commands
 from youtube_dl import YoutubeDL
@@ -8,10 +6,10 @@ class music_cog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.isplaying = False;
-        self.ispaused = False;
+        self.isplaying = False
+        self.ispaused = False
 
-        self.music_queue = [];
+        self.music_queue = []
         self.YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': True}
         self.ffmpeg_options = {'before_options': '-reconnect 1 -reconnect_streamed 1'}
 
@@ -70,8 +68,8 @@ class music_cog(commands.Cog):
                 await ctx.send("Song added to queue")
                 self.music_queue.append([song, voice_channel])
 
-                if self.isplaying == False:
-                    await self.play_song()
+                if not self.isplaying:
+                    await self.play_song(ctx)
 
     @commands.command(name="pause", help = "Pauses the current song")
     async def pause(self, ctx, *args):
