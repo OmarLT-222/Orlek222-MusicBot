@@ -35,3 +35,58 @@ class music_cog(commands.Cog):
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.ffmpeg_options), after=lambda e: self.play_next_song())
         else:
             self.isplaying = False
+
+    async def play_song(self, ctx):
+        if len(self.music_queue) > 0:
+            self.isplaying = True
+            m_url = self.music_queue[0][0]['source']
+
+            if self.vc == None or not self.vc.is_connected():
+                self.vc = await self.music_queue[0][1].connect()
+
+                if self.vc == None:
+                    await ctx.send("Could not connect to voice channel")
+                    return
+            else:
+                await self.vc.move_to(self.music_queue[0][1])
+            self.music_queue.pop(0)
+            self.vc.play(discord.FFmpegPCMAudio(m_url, **self.ffmpeg_options), after=lambda e: self.play_next_song())
+        else:
+            self.isplaying = False
+
+    @commands.command(name="play", aliases = ["p"], help = "Plays a song")
+    async def play(self, ctx, *args):
+        query = " ".join(args)
+        voice_channel = ctx.author.voice.channel
+        if voice_channel == None:
+            await ctx.send("Connect to a voice channel")
+        elif self.ispaused:
+            self.vc.resume()
+        else:
+            song = self.search_yt(query)
+            if type(song) == type(True):
+                await ctx.send("Could not download the song, try a different keyword")
+            else:
+                await ctx.send("Song added to queue")
+                self.music_queue.append([song, voice_channel])
+
+                if self.isplaying == False:
+                    await self.play_song()
+
+    @commands.command(name="pause", help = "Pauses the current song")
+    async def pause(self, ctx, *args):
+        if self.isplaying:
+            self.isplaying = False
+            self.ispaused = True
+            self.vc.pause()
+        elif self.ispaused:
+            self.isplaying = True
+            self.ispaused = False
+            self.vc.resume()
+
+    @commands.command(name="resume", aliases =["r"], help="Resumes the current song")
+    async def pause(self, ctx, *args):
+        if self.ispaused:
+            self.isplaying = True
+            self.ispaused = False
+            self.vc.resume()
