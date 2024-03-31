@@ -21,7 +21,8 @@ class music_cog(commands.Cog):
                 info = ydl.extract_info("ytsearch:%s" % item, download=False)['entries'][0]
             except Exception as e:
                 return False
-        return {'source': info['formats'[0]['url']], 'title': info['title']}
+        return {'source': info['formats'][0]["url"], 'title': info['title']}
+
     def play_next_song(self):
         if len(self.music_queue) > 0:
             self.isplaying = True
