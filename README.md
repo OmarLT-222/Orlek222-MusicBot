@@ -8,7 +8,7 @@ Since a lot of discord music bots are being blocked by YouTube nowadays I've dec
 /clear or /c - Clears the queue\
 /leave or /l - Disconnects the bot from the voice channel\
 /pause - Pauses the current song\
-/resume - Resumes the current song\
+/resume - Resumes the current song
 
 # Installation
 First, you'll need to clone the repo: `git@github.com:OmarLT-222/Orlek222-MusicBot.git`
