@@ -26,3 +26,7 @@ Remember that you need to have your token setup in your environment variables, o
 # TODO
 
 - [] Implement a spotify reproduction functionality
+
+# CREDITS
+I made this bot following [this tutorial](https://youtu.be/dRHUW_KnHLs?si=iHYcrUwNcjUkjDF8). I changed some things, as the FFMPEG options so it\
+wouldn't have any trouble on playing the songs, and I also used the `yt-dlp` library as `youtube_dl` is deprecated.
