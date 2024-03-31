@@ -9,15 +9,11 @@ from music_cog import music_cog
 
 API_KEY = constants.TOKEN
 
+print("Starting Bot...")
+bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 
-def main():
-    bot = commands.Bot(command_prefix="/")
+bot.remove_command('help')
+bot.add_cog(music_cog(bot))
+bot.add_cog(HelperCog(bot))
 
-    bot.remove_command('help')
-    bot.add_cog(music_cog(bot))
-    bot.add_cog(HelperCog(bot))
-
-    bot.run(API_KEY)
-
-
-main()
+bot.run(API_KEY)

@@ -11,7 +11,7 @@ class music_cog(commands.Cog):
 
         self.music_queue = []
         self.YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': True}
-        self.ffmpeg_options = {'before_options': '-reconnect 1 -reconnect_streamed 1'}
+        self.ffmpeg_options = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5'}
 
         self.vc = None
 
