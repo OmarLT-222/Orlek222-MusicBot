@@ -152,4 +152,4 @@ cython_debug/
 #.idea/
 
 #API KEY file
-tokens.txt
+tokens.py
