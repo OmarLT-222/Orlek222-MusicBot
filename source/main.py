@@ -1,4 +1,5 @@
 ##-----IMPORTS AND DEFINITIONS-----##
+import asyncio
 
 import discord
 from discord.ext import commands
@@ -9,11 +10,20 @@ from music_cog import music_cog
 
 API_KEY = constants.TOKEN
 
-print("Starting Bot...")
-bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
+async def setup():
+    print("Setting up bot...")
+    bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 
-bot.remove_command('help')
-bot.add_cog(music_cog(bot))
-bot.add_cog(HelperCog(bot))
+    bot.remove_command('help')
+    await bot.add_cog(music_cog(bot))
+    await bot.add_cog(HelperCog(bot))
 
-bot.run(API_KEY)
+    return bot
+
+if __name__ == "__main__":
+    bot = asyncio.run(setup())
+    print("Starting bot...")
+    bot.run(API_KEY)
+
+
+
