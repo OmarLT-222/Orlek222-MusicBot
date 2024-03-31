@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import dismusic
 import os
 import tokens as constants
 
